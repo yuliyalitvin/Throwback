@@ -1,37 +1,4 @@
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8" />
-    <title>Spiel</title>
-    <script src="//cdn.jsdelivr.net/npm/phaser@3.11.0/dist/phaser.js"></script>
-    <script src="phaser.js"></script>  
-    <script type="text/javascript" src="game.js"></script>  
-    <style type="text/css" href="style.css">
-        #main{
-    width: 100%;
-    height: 100vh;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-}
-#field {
-    background: white;
-/*    width: 1280px;*/
-    width: 1000px;
-    height: 600px;
-    background-size: 1280px 600px;
-    position: absolute;
-}
- </style>
-</head>
-
-<body>
-    <div id="main">
-        <div id="field"></div>
-    </div>
-        <script type="text/javascript">
+<script type="text/javascript">
                 var config = {
                     type: Phaser.AUTO,
                     width: 1000,
@@ -231,8 +198,4 @@
                     }
                 }
 
-            </script>    
-      
-</body>
-
-</html>
+            </script>
