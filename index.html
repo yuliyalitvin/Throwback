@@ -106,7 +106,7 @@
 
                     player = this.physics.add.sprite(300, 200, 'dude'); //POSTITION VON DER ER RUNTER FÄLLT
 
-                    player.setBounce(0.3) //LEICHTER SPRUNG WIEDR HOCH
+                    player.setBounce(0.2) //LEICHTER SPRUNG WIEDR HOCH
                     player.setCollideWorldBounds(true);
                     //            player.body.setGravityY(300)
 
@@ -150,7 +150,7 @@
                 function update() {
                     
                   if (cursors.up.isDown && player.body.touching.down) {
-                        player.setVelocityY(-330);
+                        player.setVelocityY(-300);
 
                         player.anims.play('left', true);
                     } else {
@@ -159,9 +159,7 @@
                        
                     }
 
-                    if (cursors.up.isDown && player.body.touching.down) {
-                        player.setVelocityY(-330); //ZAHL IST DIE HÖHE DIE ER SPRINGT
-                    }
+                   
                 }
 
             </script>    
