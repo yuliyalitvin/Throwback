@@ -1,0 +1,195 @@
+<html>
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Throwback</title>
+
+    <!--    favicon-->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon/apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon/favicon-16x16.png">
+    <link rel="manifest" href="assets/favicon/site.webmanifest">
+    <link rel="mask-icon" href="assets/favicon/safari-pinned-tab.svg" color="#5bbad5">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="theme-color" content="#ffffff">
+
+
+    <script src="http://cdn.jsdelivr.net/npm/phaser@3.17.0/dist/phaser.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    <link type="text/css" rel="stylesheet" href="style.css">
+    <script src="Level1.js" type="text/javascript"></script>
+    <script src="Level2.js" type="text/javascript"></script>
+    <script src="Level3.js" type="text/javascript"></script>
+    <script src="Level4.js" type="text/javascript"></script>
+    <!--    <script src="scriptLvl3.js"></script>-->
+
+    <!--    <script src="start.js"></script>-->
+    <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
+    <script type="text/javascript">
+        function startGame(x) {
+            document.getElementById("menu").style.display = "none";
+            //        hidden();
+            switch (x) {
+                case 1:
+                    Level1();
+                    console.log("Level 1");
+                    //                    document.getElementById("pauseButton").style.display = "block";
+                    break;
+                case 2:
+                    Level2();
+                    console.log("Level 2");
+                    //                    document.getElementById("pauseButton").style.display = "block";
+                    break;
+                case 3:
+                    Level3();
+                    console.log("Level 3");
+                    //                    document.getElementById("pauseButton").style.display = "block";
+                    break;
+                case 4:
+                    Level4();
+                    console.log("Level 4");
+                    //                    document.getElementById("pauseButton").style.display = "block";
+                    break;
+                case 5:
+                    story();
+                    console.log("Storymode");
+                    //                    document.getElementById("pauseButton").style.display = "block";
+                    break;
+            }
+        }
+        //  function hidden(){
+        //    document.getElementById("menu").style.display="none";
+        //}
+        function pauseMenu() {
+
+            //        let canvas = document.querySelector("canvas");
+            //        canvas.scene.pause("default");
+            var pause = document.getElementById("pause");
+            //                 pauseGame();
+            if (pause.style.display === "none") {
+                pause.style.display = "block";
+                //                document.getElementById("menu").style.display="none";
+
+            } else {
+                pause.style.display = "none";
+            }
+
+            //Spiel muss pausieren
+        }
+
+        function showMenu() {
+            document.getElementById("menu").style.display = "block";
+            document.getElementById("pause").style.display = "none";
+            document.getElementById("gameOver").style.display = "none";
+            document.getElementById("anleitung").style.display = "none";
+            document.getElementById("levelGeschafft").style.display = "none";
+            document.getElementById("storyGeschafft").style.display = "none";
+
+
+            let canvas = document.querySelector("canvas");
+            canvas.parentNode.removeChild(canvas);
+        }
+
+        function showAnleitung() {
+            document.getElementById("anleitung").style.display = "block";
+            document.getElementById("menu").style.display = "none";
+
+        }
+
+        function audio() {
+            document.getElementById('musik').addEventListener('ended', function() {
+                this.currentTime = 0;
+            }, false);
+
+        }
+
+    </script>
+</head>
+
+<body onload="audio">
+<!--        <audio autoplay="autoplay">-->
+
+    <audio  id="musik" controls autoplay loop>
+                <source src="assets/sound/hintergrundMusik.mp3" type="audio/mpeg">
+        <script>
+        var music = document.getElementById('musik');
+            music.volume = 1;
+        
+        </script>
+    </audio>
+    <div id="main">
+        <div id="field">
+
+            <div id="menu">
+                <h1>Throwback</h1>
+                <div id="anleitungButton" onclick="showAnleitung()">Anleitung</div>
+
+                <center>
+                    <div id="levelMode">
+                        <div id="storyMode" onclick="startGame(5)">Story Mode</div>
+                        <ul>
+                            <li id="Lvl4" onclick="startGame(4)">1920er</li>
+                            <li id="Lvl3" onclick="startGame(3)">1940er</li>
+                            <li id="Lvl2" onclick="startGame(2)">1970er</li>
+                            <li id="Lvl1" onclick="startGame(1)">2000er</li>
+                        </ul>
+                    </div>
+                </center>
+            </div>
+            <div id="anleitung">
+                <h1>Anleitung </h1>
+
+                Ob im Storymodus oder im spezifischen Jahrzehnt, bleibt das Ziel des Spiels ohne zu Sterben durch das Level zu kommen und - wenn im Storymodus - zum nächsten zu gelangen. Dafür hast du drei Leben pro Level.
+                Sei gewarnt: Beim Berühren von gewissen Gegenständen, beim Fallen in Gräben oder beim erfolglosen Umgehen von Hindernissen stirbst du.
+                <br><br>
+                Der Spieler kann über die LEERTASTE oder über die PFEIL-OBEN-TASTE gesteuert.
+
+
+                <ul>
+                    <li onclick="showMenu()">Zurück zu Menü</li>
+                </ul>
+            </div>
+            <div id="pause">
+                pause
+                <ul>
+                    <li onclick="showMenu()">Zurück zu Menü</li>
+                </ul>
+            </div>
+            <div id="gameOver">
+                <h1>Game Over!</h1>
+                Du hast es trotz der drei Leben, die dir zur Verfügung standen, nicht geschafft dieses Jahrzehnt zu überleben. Möglicherweise war in der Vergangenheit tatsächlich nicht alles besser und einfacher wie alle immer sagen!
+                <br><br>
+                Vielleicht musst du dich aber auch nur versuchen mehr in das Jahrzehnt hineinzuversetzen, um dessen "Tick" besser zu verstehen. Möglicherweise hilft dir das, um zu überleben und dir selbst zu beweisen, dass es früher wohlmöglich doch besser war...
+                Ach die alten guten Zeiten...!
+                <ul>
+                    <li onclick="showMenu()">Zurück zum Menü</li>
+                </ul>
+            </div>
+
+            <div id="levelGeschafft">
+                <h1>Level geschafft!</h1>
+                <p>
+                    Du hast es geschafft! Glückwunsch! Mach dich bereit, auf alles was noch kommt... Man weiß ja nie, was die Vergangenheit so mit sich bringt...!
+                </p>
+                <ul>
+                    <li onclick="showMenu()">Zurück zum Menü</li>
+                </ul>
+            </div>
+
+            <div id="storyGeschafft">
+                <h1>Story geschafft!</h1>
+                <p>
+                    Wow! Du hast es drauf, selbst die Vergangenheit kann dich nicht einholen!
+                    Na? Waren die alten guten Zeiten wirklich gut?
+                </p>
+                <ul>
+                    <li onclick="showMenu()">Zurück zum Menü</li>
+                </ul>
+            </div>
+            <!--            <i id="pauseButton" onclick="pauseMenu()" class="fas fa-pause"></i>-->
+            <!--            <i id="pauseButton" onclick="pauseMenu()"></i>-->
+        </div>
+    </div>
+</body>
+
+</html>
