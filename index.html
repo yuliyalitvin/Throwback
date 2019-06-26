@@ -85,7 +85,6 @@
             document.getElementById("levelGeschafft").style.display = "none";
             document.getElementById("storyGeschafft").style.display = "none";
 
-
             let canvas = document.querySelector("canvas");
             canvas.parentNode.removeChild(canvas);
         }
@@ -100,6 +99,8 @@
             document.getElementById('musik').addEventListener('ended', function() {
                 this.currentTime = 0;
             }, false);
+            var music = document.getElementById('musik');
+            music.volume = 0.5;
 
         }
 
@@ -107,14 +108,14 @@
 </head>
 
 <body onload="audio">
-<!--        <audio autoplay="autoplay">-->
+    <!--        <audio autoplay="autoplay">-->
 
-    <audio  id="musik" controls autoplay loop>
-                <source src="assets/sound/hintergrundMusik.mp3" type="audio/mpeg">
+    <audio id="musik" controls autoplay loop>
+        <source src="assets/sound/hintergrundMusik.mp3" type="audio/mpeg">
         <script>
-        var music = document.getElementById('musik');
-            music.volume = 1;
-        
+            var music = document.getElementById('musik');
+            music.volume = 0.3;
+
         </script>
     </audio>
     <div id="main">
@@ -126,7 +127,9 @@
 
                 <center>
                     <div id="levelMode">
-                        <div id="storyMode" onclick="startGame(5)">Story Mode</div>
+                        <!--                        <div id="storyMode" onclick="startGame(5)">Story Mode</div>-->
+                        <div id="storyMode" onclick="startGame(1)">Story Mode</div>
+                        <!--                        DIESE IST NUR FÜR DEMO-->
                         <ul>
                             <li id="Lvl4" onclick="startGame(4)">1920er</li>
                             <li id="Lvl3" onclick="startGame(3)">1940er</li>
@@ -139,40 +142,51 @@
             <div id="anleitung">
                 <h1>Anleitung </h1>
 
-                Ob im Storymodus oder im spezifischen Jahrzehnt, bleibt das Ziel des Spiels ohne zu Sterben durch das Level zu kommen und - wenn im Storymodus - zum nächsten zu gelangen. Dafür hast du drei Leben pro Level.
-                Sei gewarnt: Beim Berühren von gewissen Gegenständen, beim Fallen in Gräben oder beim erfolglosen Umgehen von Hindernissen stirbst du.
+                Ob im Storymodus oder im spezifischen Jahrzehnt, bleibt das Ziel des Spiels das Level zu überleben und zum nächsten zu gelangen. Dafür hast du drei Leben pro Level.
+                Doch sei gewarnt: Beim Fallen in Gräben oder beim erfolglosen Umgehen von Hindernissen stirbst du.
                 <br><br>
-                Der Spieler kann über die LEERTASTE oder über die PFEIL-OBEN-TASTE gesteuert.
-
-
+                Der Spieler kann über die LEERTASTE oder über die PFEIL-OBEN-TASTE gesteuert werden.
                 <ul>
-                    <li onclick="showMenu()">Zurück zu Menü</li>
+                    <li>
+                        <a href="index.html"> Zurück zum Menü</a>
+                    </li>
                 </ul>
             </div>
             <div id="pause">
                 pause
                 <ul>
-                    <li onclick="showMenu()">Zurück zu Menü</li>
+                    <li>
+                        <a href="index.html"> Zurück zum Menü</a>
+                    </li>
                 </ul>
             </div>
             <div id="gameOver">
-                <h1>Game Over!</h1>
-                Du hast es trotz der drei Leben, die dir zur Verfügung standen, nicht geschafft dieses Jahrzehnt zu überleben. Möglicherweise war in der Vergangenheit tatsächlich nicht alles besser und einfacher wie alle immer sagen!
+                 <h1>Game Over!</h1>
+                Du hast es
+<!--                trotz der drei Leben, die dir zur Verfügung standen, -->
+                nicht geschafft dieses Jahrzehnt zu überleben. Möglicherweise war in der Vergangenheit tatsächlich nicht alles einfacher und besser wie immer alle sagen!
                 <br><br>
+<!--
                 Vielleicht musst du dich aber auch nur versuchen mehr in das Jahrzehnt hineinzuversetzen, um dessen "Tick" besser zu verstehen. Möglicherweise hilft dir das, um zu überleben und dir selbst zu beweisen, dass es früher wohlmöglich doch besser war...
                 Ach die alten guten Zeiten...!
+-->
                 <ul>
-                    <li onclick="showMenu()">Zurück zum Menü</li>
+                    <li>
+                        <a href="index.html"> Zurück zum Menü</a>
+                    </li>
+                    <!--                    <li onclick="showMenu()">Zurück zum Menü</li>-->
                 </ul>
             </div>
 
             <div id="levelGeschafft">
-                <h1>Level geschafft!</h1>
+               <h1>Level geschafft!</h1>
                 <p>
-                    Du hast es geschafft! Glückwunsch! Mach dich bereit, auf alles was noch kommt... Man weiß ja nie, was die Vergangenheit so mit sich bringt...!
+                    Glückwunsch! Du hast es geschafft! Mach dich bereit, auf alles was noch kommt... Man weiß ja nie, was die Vergangenheit so mit sich bringt...!
                 </p>
                 <ul>
-                    <li onclick="showMenu()">Zurück zum Menü</li>
+                    <li>
+                        <a href="index.html"> Zurück zum Menü</a>
+                    </li>
                 </ul>
             </div>
 
@@ -183,7 +197,9 @@
                     Na? Waren die alten guten Zeiten wirklich gut?
                 </p>
                 <ul>
-                    <li onclick="showMenu()">Zurück zum Menü</li>
+                    <li>
+                        <a href="index.html"> Zurück zum Menü</a>
+                    </li>
                 </ul>
             </div>
             <!--            <i id="pauseButton" onclick="pauseMenu()" class="fas fa-pause"></i>-->

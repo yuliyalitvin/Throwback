@@ -49,6 +49,11 @@ h1 {
     text-align: center;
 }
 
+a {
+    text-decoration: none;
+    color: white;
+}
+
 ul {
     /*    background-color: aqua;*/
     left: 132px;
@@ -265,7 +270,7 @@ li:hover {
     opacity: 1;
 }
 audio{
-/*    display: none;*/
+    display: none;
     
 }
 

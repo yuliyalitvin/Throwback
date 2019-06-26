@@ -154,10 +154,6 @@ function Level4() {
 
         this.physics.add.collider(player, portalLinks, levelGeschafft, null, this);
 
-        map.setCollisionByProperty({
-            collision: true
-        });
-
         boden.setCollisionByExclusion([-1]);
         this.physics.world.bounds.widht = boden.width;
         this.physics.world.bounds.height = boden.height;
@@ -278,21 +274,21 @@ function Level4() {
 
     function openGameOverScreen() {
         document.getElementById("gameOver").style.display = "block";
-        document.getElementById("pauseButton").style.display = "none";
+//        document.getElementById("pauseButton").style.display = "none";
         let canvas = document.querySelector("canvas");
         canvas.parentNode.removeChild(canvas);
     }
 
     function levelGeschafft() {
         document.getElementById("levelGeschafft").style.display = "block";
-        document.getElementById("pauseButton").style.display = "none";
+//        document.getElementById("pauseButton").style.display = "none";
         let canvas = document.querySelector("canvas");
         canvas.parentNode.removeChild(canvas);
     }
 
     function storyGeschafft() {
         document.getElementById("storyGeschafft").style.display = "block";
-        document.getElementById("pauseButton").style.display = "none";
+//        document.getElementById("pauseButton").style.display = "none";
         let canvas = document.querySelector("canvas");
         canvas.parentNode.removeChild(canvas);
     }

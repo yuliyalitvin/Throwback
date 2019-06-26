@@ -225,8 +225,6 @@ function Level3() {
 
     function update() {
 
-        console.log(leben);
-
         //Leben - Anzeige
 
         if (leben < 3) {
@@ -340,21 +338,21 @@ function Level3() {
 
     function openGameOverScreen() {
         document.getElementById("gameOver").style.display = "block";
-        document.getElementById("pauseButton").style.display = "none";
+//        document.getElementById("pauseButton").style.display = "none";
         let canvas = document.querySelector("canvas");
         canvas.parentNode.removeChild(canvas);
     }
 
     function levelGeschafft() {
         document.getElementById("levelGeschafft").style.display = "block";
-        document.getElementById("pauseButton").style.display = "none";
+//        document.getElementById("pauseButton").style.display = "none";
         let canvas = document.querySelector("canvas");
         canvas.parentNode.removeChild(canvas);
     }
 
     function storyGeschafft() {
         document.getElementById("storyGeschafft").style.display = "block";
-        document.getElementById("pauseButton").style.display = "none";
+//        document.getElementById("pauseButton").style.display = "none";
         let canvas = document.querySelector("canvas");
         canvas.parentNode.removeChild(canvas);
     }

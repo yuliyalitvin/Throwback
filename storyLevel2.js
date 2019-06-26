@@ -1,26 +1,11 @@
-function Level2() {
-    var config = {
-        type: Phaser.AUTO,
-        width: 1000,
-        height: 608,
-        parent: "field",
-        physics: {
-            default: 'arcade',
-            arcade: {
-                gravity: {
-                    y: 350
-                },
-                debug: false
-            }
-        },
-        scene: {
-            preload: preload,
-            create: create,
-            update: update
-        }
-    };
+class storyLevel2 extends Phaser.Scene {
 
-    var game = new Phaser.Game(config);
+    constructor() {
+        super({
+            key: 'storyLevel2'
+        });
+    }
+
     var leben = 3;
     var lebenText;
     var player;
@@ -32,8 +17,7 @@ function Level2() {
     var herz2;
     var herz3;
     var cameraX = 0;
-
-    function preload() {
+    preload() {
         this.load.image('Level2Ground', 'assets/tiled/BodenLevel2.png');
         this.load.image('Level2Background', 'assets/tiled/HintergrundLevel2.png');
         this.load.image('Level2Sofa', 'assets/tiled/SofaLevel2.png');
@@ -67,8 +51,7 @@ function Level2() {
             frameHeight: 64
         });
     }
-
-    function create() {
+    create() {
 
         //HINTERGRUND
         map = this.make.tilemap({
@@ -195,7 +178,7 @@ function Level2() {
         cursors = this.input.keyboard.createCursorKeys();
     }
 
-    function update() {
+    update() {
 
         portalAusgang.anims.play('startAusgang', true);
         portalEingang.anims.play('startEingang', true);
@@ -203,12 +186,9 @@ function Level2() {
         player.setVelocityX(-120);
         player.anims.play('left', true);
 
-        if ( cameraX == this.cameras.main.scrollX && player.x > -18100 && player.x < -100) {
+        if (cameraX == this.cameras.main.scrollX && player.x > -18100 && player.x < -100) {
             player.anims.play('stands', true);
         }
-
-        playerY = player.y;
-        cameraX = this.cameras.main.scrollX;
 
         if ((cursors.space.isDown || cursors.up.isDown) && player.body.onFloor() && player.y > 300) {
 
@@ -255,7 +235,6 @@ function Level2() {
             errorSound.play();
 
             this.scene.restart();
-            //            sounds von https://www.zapsplat.com/?s=error&post_type=music&sound-effect-category-id=
         }
     }
 
@@ -278,21 +257,7 @@ function Level2() {
 
     function openGameOverScreen() {
         document.getElementById("gameOver").style.display = "block";
-//        document.getElementById("pauseButton").style.display = "none";
-        let canvas = document.querySelector("canvas");
-        canvas.parentNode.removeChild(canvas);
-    }
-
-    function levelGeschafft() {
-        document.getElementById("levelGeschafft").style.display = "block";
-//        document.getElementById("pauseButton").style.display = "none";
-        let canvas = document.querySelector("canvas");
-        canvas.parentNode.removeChild(canvas);
-    }
-
-    function storyGeschafft() {
-        document.getElementById("storyGeschafft").style.display = "block";
-//        document.getElementById("pauseButton").style.display = "none";
+        document.getElementById("pauseButton").style.display = "none";
         let canvas = document.querySelector("canvas");
         canvas.parentNode.removeChild(canvas);
     }
