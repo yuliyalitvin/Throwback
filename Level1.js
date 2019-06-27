@@ -121,8 +121,8 @@ function Level1() {
 
         //        this.physics.add.collider(player, auto, death(this) , null, this);
         boden.setCollisionByExclusion([-1]);
-//                auto.setCollisionByExclusion([-1]);
-//                this.physics.add.collider(player, auto, death, null, this);
+                auto.setCollisionByExclusion([-1]);
+                this.physics.add.collider(player, auto, death, null, this);
         //              this.physics.world.collide(player,boden);
 
         this.physics.add.collider(player, boden);
@@ -198,12 +198,12 @@ function Level1() {
             jump = 2;
         }
 
-        if (cursors.right.isDown) {
-            pauseGame();
-        }
-        if (cursors.up.isDown) {
-            resumeGame();
-        }
+//        if (cursors.right.isDown) {
+//            pauseGame();
+//        }
+//        if (cursors.up.isDown) {
+//            resumeGame();
+//        }
         if (player.y > 680) {
             deathFall(this);
         }
