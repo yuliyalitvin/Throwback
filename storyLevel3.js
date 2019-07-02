@@ -1,55 +1,17 @@
-function Level3() {
+class storyLevel3 extends Phaser.Scene {
 
-    var config = {
-        type: Phaser.AUTO,
-        width: 1000,
-        height: 608,
-        parent: "field",
-        physics: {
-            default: 'arcade',
-            arcade: {
-                gravity: {
-                    y: 300
-                },
-                debug: false
-            }
-        },
-        scene: {
-            preload: preload,
-            create: create,
-            update: update
-        },
-        audio: {
-            disableWebAudio: true
-        }
-    };
+    constructor() {
+        super({
+            key: 'storyLevel3'
+        });
+    }
 
-    var game = new Phaser.Game(config);
-    var map;
-    var cursors;
-    var player;
-    var routeWW2;
-    var leben = 3;
-    var beschleunigung = -100;
-    var dekoHintergrund;
-    var bomben;
-    var bomben1;
-    var bomben2;
-    var bomben3;
-    var portalAusgang;
-    var portalEingang;
-    var cameraX = 0;
-
-    var herz1;
-    var herz2;
-    var herz3;
-
-    function preload() {
+    preload() {
 
         this.load.image('panzerTiles', 'assets/tiled/panzerUnscharf.png');
         this.load.image('panzerKleinTiled', 'assets/tiled/panzer.png');
         this.load.image('ruineTiles', 'assets/tiled/ruine.png');
-        this.load.tilemapTiledJSON('map', 'assets/tiled/MapLvl3.json');
+        this.load.tilemapTiledJSON('map3', 'assets/tiled/MapLvl3.json');
         this.load.image('bodenTiles', 'assets/tiled/BodenLvl3.png');
         this.load.image('mauerTiles', 'assets/tiled/mauer.png');
         this.load.image('zaunTiles', 'assets/tiled/zaun.png');
@@ -78,42 +40,39 @@ function Level3() {
             frameWidth: 32,
             frameHeight: 20
         });
+        console.log("story level 3");
     }
 
-    function create() {
+    create() {
+
         //HINTERGRUND
-        map = this.make.tilemap({
-            key: 'map'
+        map3 = this.make.tilemap({
+            key: 'map3'
         });
-        var bodenImg = map.addTilesetImage('BodenLvl3', 'bodenTiles');
-        var ruineImg = map.addTilesetImage('ruine', 'ruineTiles');
-        var backImg = map.addTilesetImage('BackgroundLevel3', 'backgroundTiles');
-        var zaunImg = map.addTilesetImage('Zaun', 'zaunTiles');
-        var zaunKleinImg = map.addTilesetImage('ZaunKlein', 'zaunKleinTiles');
-        var panzerImg = map.addTilesetImage('panzerUnscharf', 'panzerTiles');
-        var panzerKleinImg = map.addTilesetImage('panzerKlein', 'panzerKleinTiled');
-        var mauerImg = map.addTilesetImage('mauer', 'mauerTiles');
-        var smokeImg = map.addTilesetImage('backgroundSmoke', 'dekoBack');
+        var bodenImg = map3.addTilesetImage('BodenLvl3', 'bodenTiles');
+        var ruineImg = map3.addTilesetImage('ruine', 'ruineTiles');
+        var backImg = map3.addTilesetImage('BackgroundLevel3', 'backgroundTiles');
+        var zaunImg = map3.addTilesetImage('Zaun', 'zaunTiles');
+        var zaunKleinImg = map3.addTilesetImage('ZaunKlein', 'zaunKleinTiles');
+        var panzerImg = map3.addTilesetImage('panzerUnscharf', 'panzerTiles');
+        var panzerKleinImg = map3.addTilesetImage('panzerKlein', 'panzerKleinTiled');
+        var mauerImg = map3.addTilesetImage('mauer', 'mauerTiles');
+        var smokeImg = map3.addTilesetImage('backgroundSmoke', 'dekoBack');
 
-        var hintergrund = map.createStaticLayer('himmel', [backImg], 0, 0);
+        var hintergrund = map3.createStaticLayer('himmel', [backImg], 0, 0);
         hintergrund.x = -600 * 31;
-
-        dekoHintergrund = map.createStaticLayer('dekoBackground', [smokeImg], 0, 0);
+        dekoHintergrund = map3.createStaticLayer('dekoBackground', [smokeImg], 0, 0);
         dekoHintergrund.x = -600 * 31;
-
-        var deathLayer = map.createStaticLayer('deathLayer', [zaunImg, zaunKleinImg], 0, 0);
+        var deathLayer = map3.createStaticLayer('deathLayer', [zaunImg, zaunKleinImg], 0, 0);
         deathLayer.x = -600 * 31;
-
-        var dekoLayer = map.createStaticLayer('dekoLayer', [ruineImg, panzerImg, backImg, zaunImg, panzerKleinImg], 0, 0);
+        var dekoLayer = map3.createStaticLayer('dekoLayer', [ruineImg, panzerImg, backImg, zaunImg, panzerKleinImg], 0, 0);
         dekoLayer.x = -600 * 31;
-
-        routeWW2 = map.createStaticLayer('boden', [bodenImg], 0, 0);
+        routeWW2 = map3.createStaticLayer('boden', [bodenImg], 0, 0);
         routeWW2.x = -600 * 31;
-
-        var collisionLayer = map.createStaticLayer('colliderLayer', [panzerImg, mauerImg], 0, 0);
+        var collisionLayer = map3.createStaticLayer('colliderLayer', [panzerImg, mauerImg], 0, 0);
         collisionLayer.x = -600 * 31;
 
-        //PORTAL
+        //PORTALE
         portalAusgang = this.physics.add.sprite(500, 40, 'portalAusgang');
         this.anims.create({
             key: 'startePortalAusgang',
@@ -139,7 +98,6 @@ function Level3() {
         });
 
         portalEingang.body.allowGravity = false;
-
 
         //PLAYER
         player = this.physics.add.sprite(500, 80, 'dude');
@@ -182,11 +140,10 @@ function Level3() {
 
         //--------------------CAMERA---------------
 
-        this.cameras.main.setBounds(-600 * 31, 0, map.widthInPixels, map.heightInPixels);
+        this.cameras.main.setBounds(-600 * 31, 0, map3.widthInPixels, map3.heightInPixels);
         this.cameras.main.startFollow(player);
 
         //----------------------COLLISION
-
         routeWW2.setCollisionByExclusion([-1]);
         collisionLayer.setCollisionByExclusion([-1]);
         deathLayer.setCollisionByExclusion([-1]);
@@ -201,7 +158,7 @@ function Level3() {
         this.physics.add.collider(player, bomben2, death, null, this);
         this.physics.add.collider(player, bomben3, death, null, this);
         this.physics.add.collider(player, deathLayer, death, null, this);
-        this.physics.add.collider(player, portalEingang, levelGeschafft, null, this);
+        this.physics.add.collider(player, portalEingang, nextLevel3, null, this);
 
         //-----------------------LEBEN
         herz1 = this.add.image(20, 25, 'herz');
@@ -216,9 +173,9 @@ function Level3() {
         cursors = this.input.keyboard.createCursorKeys();
     }
 
-    function update() {
-
+    update() {
         //Leben - Anzeige
+
         if (leben < 3) {
             herz3.visible = false;
             if (leben < 2) {
@@ -238,8 +195,11 @@ function Level3() {
         portalEingang.anims.play('startePortalEingang', true);
 
         //langsames Erhoehen der Geschwindingkeit des Players
-        if ((cursors.space.isDown || cursors.up.isDown) && player.body.onFloor() && player.y > 300) {
+        if (player.body.onFloor()) {
             this.gameStarts = true;
+        }
+
+        if ((cursors.space.isDown || cursors.up.isDown) && player.body.onFloor() && player.y > 300) {
             let jumpSound = new Audio();
             jumpSound.src = 'assets/sound/jump.mp3';
             jumpSound.volume = 0.5;
@@ -277,6 +237,7 @@ function Level3() {
             dekoHintergrund.x += 0.5;
         }
 
+
         //zeige andere Animation, wenn player steht
         if (cameraX < -400 && cameraX == this.cameras.main.scrollX && player.x > -18100) {
             player.anims.play('stands', true);
@@ -284,57 +245,11 @@ function Level3() {
 
         cameraX = this.cameras.main.scrollX;
     }
+}
 
-    function gameOver(game) {
-        beschleunigung = -100; //reset Wert
-        game.gameStarts = false;
-        leben--;
-        if (leben <= 0) {
-            let gameOverSound = new Audio();
-            gameOverSound.src = 'assets/sound/gameOver.mp3';
-            gameOverSound.volume = 0.5;
-            gameOverSound.play();
-            openGameOverScreen();
-        } else {
-            let errorSound = new Audio();
-            errorSound.src = 'assets/sound/error.mp3';
-            errorSound.volume = 0.5;
-            errorSound.play();
-            game.scene.restart();
-        }
-    }
-
-    function death() {
-        beschleunigung = -100; //reset Wert
-        this.gameStarts = false;
-        leben--;
-        if (leben <= 0) {
-            openGameOverScreen();
-            let gameOverSound = new Audio();
-            gameOverSound.src = 'assets/sound/gameOver.mp3';
-            gameOverSound.volume = 0.5;
-            gameOverSound.play();
-
-            openGameOverScreen();
-        } else {
-            this.scene.restart();
-            let errorSound = new Audio();
-            errorSound.src = 'assets/sound/error.mp3';
-            errorSound.volume = 0.5;
-            errorSound.play();
-        }
-    }
-
-    function openGameOverScreen() {
-        document.getElementById("gameOver").style.display = "block";
-        let canvas = document.querySelector("canvas");
-        canvas.parentNode.removeChild(canvas);
-    }
-
-    function levelGeschafft() {
-        document.getElementById("levelGeschafft").style.display = "block";
-        let canvas = document.querySelector("canvas");
-        console.log("Level complete");
-        canvas.parentNode.removeChild(canvas);
-    }
+function nextLevel3() {
+    this.scene.stop('storyLevel3');
+    this.scene.start('storyLevel4');
+    console.log("next Level");
+    leben = 3;
 }

@@ -5,18 +5,6 @@ class storyLevel2 extends Phaser.Scene {
             key: 'storyLevel2'
         });
     }
-
-    var leben = 3;
-    var lebenText;
-    var player;
-    var boden;
-    var hintergrund;
-    var pause;
-    var portal;
-    var herz1;
-    var herz2;
-    var herz3;
-    var cameraX = 0;
     preload() {
         this.load.image('Level2Ground', 'assets/tiled/BodenLevel2.png');
         this.load.image('Level2Background', 'assets/tiled/HintergrundLevel2.png');
@@ -34,7 +22,7 @@ class storyLevel2 extends Phaser.Scene {
         this.load.image('Level2WandStrasse', 'assets/tiled/lvl1Ground.png');
 
 
-        this.load.tilemapTiledJSON('map', 'assets/tiled/Level2.json');
+        this.load.tilemapTiledJSON('map2', 'assets/tiled/Level2.json');
 
         this.load.spritesheet('dude', 'assets/dude.png', {
             frameWidth: 64,
@@ -50,34 +38,34 @@ class storyLevel2 extends Phaser.Scene {
             frameWidth: 96,
             frameHeight: 64
         });
+        console.log("story level 2");
     }
     create() {
 
         //HINTERGRUND
-        map = this.make.tilemap({
-            key: 'map'
+        map2 = this.make.tilemap({
+            key: 'map2'
         });
-        var Ground = map.addTilesetImage('Ground', 'Level2Ground');
-        var Background = map.addTilesetImage('Background', 'Level2Background');
-        var Fleischpflanze = map.addTilesetImage('Fleischpflanze', 'Level2FleischPflanze');
-        var Fernseher = map.addTilesetImage('Fernseher', 'Level2Fernseher');
-        var Sofa = map.addTilesetImage('Sofa', 'Level2Sofa');
+        var Ground = map2.addTilesetImage('Ground', 'Level2Ground');
+        var Background = map2.addTilesetImage('Background', 'Level2Background');
+        var Fleischpflanze = map2.addTilesetImage('Fleischpflanze', 'Level2FleischPflanze');
+        var Fernseher = map2.addTilesetImage('Fernseher', 'Level2Fernseher');
+        var Sofa = map2.addTilesetImage('Sofa', 'Level2Sofa');
 
-        var Pflanze = map.addTilesetImage('Pflanze', 'Level2Pflanze');
-        var Tisch = map.addTilesetImage('Tisch', 'Level2Tisch');
-        var Hund = map.addTilesetImage('Hund', 'Level2Hund');
-        var Lavalampe = map.addTilesetImage('Lavalampe', 'Level2Lavalampe');
-        var Lampe = map.addTilesetImage('Lampe', 'Level2Lampe');
-        var HimmelFenster = map.addTilesetImage('HimmelFenster', 'Level2HimmelFenster');
-        var SteinWand = map.addTilesetImage('SteinWand', 'Level2WandStrasse');
+        var Pflanze = map2.addTilesetImage('Pflanze', 'Level2Pflanze');
+        var Tisch = map2.addTilesetImage('Tisch', 'Level2Tisch');
+        var Hund = map2.addTilesetImage('Hund', 'Level2Hund');
+        var Lavalampe = map2.addTilesetImage('Lavalampe', 'Level2Lavalampe');
+        var Lampe = map2.addTilesetImage('Lampe', 'Level2Lampe');
+        var HimmelFenster = map2.addTilesetImage('HimmelFenster', 'Level2HimmelFenster');
+        var SteinWand = map2.addTilesetImage('SteinWand', 'Level2WandStrasse');
 
         //Layer [tilesetimage]	
-        hintergrund = map.createStaticLayer('BackgroundLevel2', [Background, SteinWand, HimmelFenster], 0, 0)
-        boden = map.createStaticLayer('GroundLevel2', [Ground, SteinWand], 0, 0);
-        hindernisse = map.createStaticLayer('HindernisseLevel2', [Fernseher, Fleischpflanze], 0, 0)
-
-        dekoKollision = map.createStaticLayer('DekoKollisionLevel2', [Fernseher, Fleischpflanze, Tisch, Sofa, Fernseher, Pflanze], 0, 0)
-        deko = map.createStaticLayer('DekoHintergrundLevel2', [Lavalampe, Lampe, Hund, Fernseher, Pflanze], 0, 0)
+        hintergrund = map2.createStaticLayer('BackgroundLevel2', [Background, SteinWand, HimmelFenster], 0, 0)
+        boden = map2.createStaticLayer('GroundLevel2', [Ground, SteinWand], 0, 0);
+        hindernisse = map2.createStaticLayer('HindernisseLevel2', [Fernseher, Fleischpflanze], 0, 0)
+        dekoKollision = map2.createStaticLayer('DekoKollisionLevel2', [Fernseher, Fleischpflanze, Tisch, Sofa, Fernseher, Pflanze], 0, 0)
+        deko = map2.createStaticLayer('DekoHintergrundLevel2', [Lavalampe, Lampe, Hund, Fernseher, Pflanze], 0, 0)
 
         boden.x = -500 * 31;
         hintergrund.x = -500 * 31;
@@ -85,6 +73,7 @@ class storyLevel2 extends Phaser.Scene {
         deko.x = -500 * 31;
         dekoKollision.x = -500 * 31;
 
+        //PORTALE
         portalAusgang = this.physics.add.sprite(300, 465, 'portalAusgang'); //POSTITION VON DER ER RUNTER FÄLLT
         this.anims.create({
             key: 'startAusgang',
@@ -113,7 +102,7 @@ class storyLevel2 extends Phaser.Scene {
         //PLAYER
         player = this.physics.add.sprite(300, 465, 'dude'); //POSTITION VON DER ER RUNTER FÄLLT
 
-        this.physics.add.collider(player, map.bodenLayer);
+        this.physics.add.collider(player, map2.bodenLayer);
         this.anims.create({
             key: 'left',
             frames: this.anims.generateFrameNumbers('dude', {
@@ -138,23 +127,21 @@ class storyLevel2 extends Phaser.Scene {
         //Collision
         this.physics.add.collider(player, hindernisse, death, null, this);
         this.physics.add.collider(player, dekoKollision);
-        this.physics.add.collider(player, portalEingang, levelGeschafft, null, this);
-
+        this.physics.add.collider(player, portalEingang, nextLevel2, null, this);
 
         hindernisse.setCollisionByExclusion([-1]);
         dekoKollision.setCollisionByExclusion([-1]);
 
-
         this.physics.add.collider(player, boden);
-        map.setCollisionByProperty({
+        map2.setCollisionByProperty({
             collision: true
         });
 
         boden.setCollisionByExclusion([-1]);
         this.physics.add.collider(player, boden);
 
-        //             set bounds so the camera won't go outside the game world
-        this.cameras.main.setBounds(-15500, 0, map.widthInPixels, map.heightInPixels);
+        //KAMERA
+        this.cameras.main.setBounds(-15500, 0, map2.widthInPixels, map2.heightInPixels);
         this.cameras.main.startFollow(player);
 
 
@@ -166,18 +153,9 @@ class storyLevel2 extends Phaser.Scene {
         herz3 = this.add.image(100, 25, 'herz');
         herz3.setScrollFactor(0);
 
-        //Pause
-        //        pause = this.add.text(778, 30, 'pause', {
-        //            fontSize: '32px',
-        //            fill: '#ffffff'
-        //        })
-        //        pause.setScrollFactor(0);
-
-
         //TASTATUR
         cursors = this.input.keyboard.createCursorKeys();
     }
-
     update() {
 
         portalAusgang.anims.play('startAusgang', true);
@@ -202,7 +180,6 @@ class storyLevel2 extends Phaser.Scene {
 
             player.setVelocityX(0);
             player.anims.play('left', false);
-            leben--;
             gameOver(this);
         }
         if (leben < 3) {
@@ -215,50 +192,11 @@ class storyLevel2 extends Phaser.Scene {
             }
         }
     }
+}
 
-    function death() {
-        player.setVelocityX(0);
-        player.anims.play('left', false);
-        leben--;
-
-        if (leben <= 0) {
-            let gameOverSound = new Audio();
-            gameOverSound.src = 'assets/sound/gameOver.mp3';
-            gameOverSound.volume = 0.5;
-            gameOverSound.play();
-
-            openGameOverScreen();
-        } else {
-            let errorSound = new Audio();
-            errorSound.src = 'assets/sound/error.mp3';
-            errorSound.volume = 0.5;
-            errorSound.play();
-
-            this.scene.restart();
-        }
-    }
-
-    function gameOver(game) {
-        if (leben <= 0) {
-            let gameOverSound = new Audio();
-            gameOverSound.src = 'assets/sound/gameOver.mp3';
-            gameOverSound.volume = 0.5;
-            gameOverSound.play();
-
-            openGameOverScreen();
-        } else {
-            let errorSound = new Audio();
-            errorSound.src = 'assets/sound/error.mp3';
-            errorSound.volume = 0.5;
-            errorSound.play();
-            game.scene.restart();
-        }
-    }
-
-    function openGameOverScreen() {
-        document.getElementById("gameOver").style.display = "block";
-        document.getElementById("pauseButton").style.display = "none";
-        let canvas = document.querySelector("canvas");
-        canvas.parentNode.removeChild(canvas);
-    }
+function nextLevel2() {
+    this.scene.stop('storyLevel2');
+    this.scene.start('storyLevel3');
+    console.log("next Level");
+    leben = 3;
 }

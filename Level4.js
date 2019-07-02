@@ -100,8 +100,7 @@ function Level4() {
         boden.x = -1150 * 31;
         portrait.x = -1150 * 31;
 
-
-        //Portalausgang
+        //Portal
         portalAusgang = this.physics.add.sprite(1100, 40, 'portalAusgang');
         this.anims.create({
             key: 'startPortal',
@@ -115,7 +114,6 @@ function Level4() {
 
         portalAusgang.body.allowGravity = false;
 
-        //Portal links
         portalLinks = this.physics.add.sprite(-34400, 465, 'portalLinks');
         this.anims.create({
             key: 'startPortalLinks',
@@ -174,7 +172,7 @@ function Level4() {
             collision: true
         });
 
-        //          set bounds so the camera won't go outside the game world
+        //Kamera
         this.cameras.main.setBounds(-1150 * 31, 0, map.widthInPixels, map.heightInPixels);
         this.cameras.main.startFollow(player);
 
@@ -194,21 +192,29 @@ function Level4() {
 
         portalAusgang.anims.play('startPortal', true);
         portalLinks.anims.play('startPortalLinks', true);
-        player.setVelocityX(-300);
-        player.anims.play('left', true);
+
 
         if (cameraX < -200 && cameraX == this.cameras.main.scrollX && player.x > -18100) {
             player.anims.play('stands', true);
         }
-        
+
+        if (this.gameStarts == true) {
+            player.setVelocityX(-300);
+            player.anims.play('left', true);
+        } else {
+            player.anims.play('stands', true);
+        }
+
         if ((cursors.space.isDown || cursors.up.isDown) && player.body.onFloor()) {
             player.setVelocityY(-250);
             let jumpSound = new Audio();
             jumpSound.src = 'assets/sound/jump.mp3';
             jumpSound.volume = 0.5;
             jumpSound.play();
+            this.gameStarts = true;
+
         }
-        
+
         if (player.y > 680) {
             player.setVelocityX(0);
             player.anims.play('left', false);
@@ -225,7 +231,6 @@ function Level4() {
         }
         cameraX = this.cameras.main.scrollX;
     }
-
 
     function gameOver(game) {
         beschleunigung = -100; //reset Wert
@@ -249,7 +254,6 @@ function Level4() {
     }
 
     function death() {
-        console.log("collision");
         beschleunigung = -100; //reset Wert
         this.gameStarts = false;
         player.setVelocityX(0);
@@ -274,23 +278,14 @@ function Level4() {
 
     function openGameOverScreen() {
         document.getElementById("gameOver").style.display = "block";
-//        document.getElementById("pauseButton").style.display = "none";
         let canvas = document.querySelector("canvas");
         canvas.parentNode.removeChild(canvas);
     }
 
     function levelGeschafft() {
         document.getElementById("levelGeschafft").style.display = "block";
-//        document.getElementById("pauseButton").style.display = "none";
         let canvas = document.querySelector("canvas");
+        console.log("Level complete");
         canvas.parentNode.removeChild(canvas);
     }
-
-    function storyGeschafft() {
-        document.getElementById("storyGeschafft").style.display = "block";
-//        document.getElementById("pauseButton").style.display = "none";
-        let canvas = document.querySelector("canvas");
-        canvas.parentNode.removeChild(canvas);
-    }
-
 }

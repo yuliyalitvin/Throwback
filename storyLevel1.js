@@ -1,4 +1,3 @@
-var map;
 class storyLevel1 extends Phaser.Scene {
 
     constructor() {
@@ -7,26 +6,7 @@ class storyLevel1 extends Phaser.Scene {
         });
     }
 
-    var game = new Phaser.Game(config);
-    var player;
-    var boden;
-    var dekoration;
-    var tod;
-    var himmel;
-    var auto;
-    var leben = 3;
-    var lebenText;
-    var portal;
-    var herz1;
-    var herz2;
-    var herz3;
-    var cameraX = 0;
-
-    function getGame() {
-        return game;
-    }
-
-    function preload() {
+    preload() {
         this.load.image('Level1Ground', 'assets/tiled/lvl1Ground.png');
         this.load.image('Level1Extras', 'assets/tiled/lvl1Background.png');
         this.load.tilemapTiledJSON('map', 'assets/tiled/lvl1.json');
@@ -40,29 +20,30 @@ class storyLevel1 extends Phaser.Scene {
             frameWidth: 64,
             frameHeight: 96
         });
+        console.log("story level 1");
     }
 
-    function create() {
+    create() {
 
         //HINTERGRUND
         map = this.make.tilemap({
             key: 'map'
         });
-        //tileset preload
+        //TILESET preload
         var Ground = map.addTilesetImage('Ground', 'Level1Ground');
         var Extras = map.addTilesetImage('Background', 'Level1Extras');
 
+        //LAYER [tilesetimage]	
         himmel = map.createStaticLayer('Skylvl1', [Extras], 0, 0);
         boden = map.createStaticLayer('Groundlvl1', [Ground, Extras], 0, 0);
         dekoration = map.createStaticLayer('Backgroundlvl1', [Extras], 0, 0);
         auto = map.createStaticLayer('Autolvl1', [Extras], 0, 0);
-        //Layer [tilesetimage]	
-        //reihnfolge bestimmt auch die Layerposition(vorne - hinten)
 
         boden.x = -360 * 31;
         auto.x = -360 * 31;
         dekoration.x = -360 * 31;
         himmel.x = -360 * 31;
+
         //PLAYER
         player = this.physics.add.sprite(70, 175, 'dude'); //POSTITION VON DER ER RUNTER FÄLLT
 
@@ -86,6 +67,7 @@ class storyLevel1 extends Phaser.Scene {
             repeat: -1
         });
 
+        //PORTALE
         portalAusgang = this.physics.add.sprite(-10000, 370, 'portalAusgang'); //POSTITION VON DER ER RUNTER FÄLLT
         this.anims.create({
             key: 'startAusgang',
@@ -97,26 +79,24 @@ class storyLevel1 extends Phaser.Scene {
             repeat: -1 // SAGT DASS ES EIN LOOP SEIN SOLL
         });
         portalAusgang.body.allowGravity = false;
-        this.physics.add.collider(player, portalAusgang);
-        //Collision
 
-        //        portalAusgang.setCollisionByExclusion([-1]);
-        this.physics.add.collider(player, portalAusgang, levelGeschafft, null, this);
+        //KOLLISION
+        this.physics.add.collider(portalAusgang, player, nextLevel, null, this);
 
         boden.setCollisionByExclusion([-1]);
-        //                auto.setCollisionByExclusion([-1]);
-        //                this.physics.add.collider(player, auto, death, null, this);
-        //              this.physics.world.collide(player,boden);
+        auto.setCollisionByExclusion([-1]);
+        this.physics.add.collider(player, auto, death, null, this);
 
         this.physics.add.collider(player, boden);
         map.setCollisionByProperty({
             collision: true
         });
 
-        //camera
+        //KAMERA
         this.cameras.main.setBounds(-11160, 0, map.widthInPixels, map.heightInPixels);
         this.cameras.main.startFollow(player);
 
+        //LEBEN
         herz1 = this.add.image(20, 25, 'herz');
         herz1.setScrollFactor(0);
         herz2 = this.add.image(60, 25, 'herz');
@@ -124,16 +104,7 @@ class storyLevel1 extends Phaser.Scene {
         herz3 = this.add.image(100, 25, 'herz');
         herz3.setScrollFactor(0);
 
-        //
-        //        //Pause
-        //        pause = this.add.text(778, 30, 'pause', {
-        //            fontSize: '32px',
-        //            fill: '#ffffff'
-        //        })
-        //        pause.setScrollFactor(0);
-        //        
         //TASTATUR
-        var jump = 2;
         cursors = this.input.keyboard.createCursorKeys();
     }
     update() {
@@ -142,39 +113,21 @@ class storyLevel1 extends Phaser.Scene {
 
         if (cursors.space.isDown || cursors.up.isDown) {
             this.gameStarts = true;
-
         }
 
         if (this.gameStarts == true) {
             player.setVelocityX(-150);
             player.anims.play('left', true);
         }
-        if ((cursors.space.isDown || cursors.up.isDown) && player.body.onFloor() && jump > 1) {
-            player.setVelocityY(-220);
-            jump--;
+        if ((cursors.space.isDown || cursors.up.isDown) && player.body.onFloor()) {
+            player.setVelocityY(-250);
             let jumpSound = new Audio();
             jumpSound.src = 'assets/sound/jump.mp3';
             jumpSound.volume = 0.5;
             jumpSound.play();
-        } else if ((cursors.space.isDown || cursors.up.isDown) && jump == 1) {
-            player.setVelocityY(-250);
-            jump--;
-            console.log(jump);
-            jumpSound.src = 'assets/sound/jump.mp3';
-            jumpSound.volume = 0.5;
-            jumpSound.play();
-        } else if (player.body.onFloor()) {
-            jump = 2;
-            console.log(jump);
-        }
-        if (cursors.right.isDown) {
-            pauseGame();
-        }
-        if (cursors.up.isDown) {
-            resumeGame();
         }
         if (player.y > 680) {
-            deathFall(this);
+            gameOver(this);
         }
         if (leben < 3) {
             herz3.visible = false;
@@ -185,57 +138,22 @@ class storyLevel1 extends Phaser.Scene {
                 }
             }
         }
+
         //zeige andere Animation, wenn player steht
         if (player.x == 70) {
             player.anims.play('stands', true);
         }
 
-        if (cameraX < -700 && cameraX == this.cameras.main.scrollX) { //&& player.x < 70
+        if (cameraX < -700 && cameraX == this.cameras.main.scrollX) {
             player.anims.play('stands', true);
         }
         cameraX = this.cameras.main.scrollX;
     }
+}
 
-    function death() {
-        //      this.scene.restart
-        console.log("death!");
-        leben--;
-
-        if (leben <= 0) {
-            let gameOverSound = new Audio();
-            gameOverSound.src = 'assets/sound/gameOver.mp3';
-            gameOverSound.volume = 0.5;
-            gameOverSound.play();
-
-            openGameOverScreen();
-        } else {
-            let errorSound = new Audio();
-            errorSound.src = 'assets/sound/error.mp3';
-            errorSound.volume = 0.5;
-            errorSound.play();
-
-            this.scene.restart();
-        }
-    }
-
-    function deathFall(game) {
-        //        game.scene.restart();
-        leben--;
-        console.log("this death!");
-        if (leben <= 0) {
-            let gameOverSound = new Audio();
-            gameOverSound.src = 'assets/sound/gameOver.mp3';
-            gameOverSound.volume = 0.5;
-            gameOverSound.play();
-
-            openGameOverScreen();
-        } else {
-            let errorSound = new Audio();
-            errorSound.src = 'assets/sound/error.mp3';
-            errorSound.volume = 0.5;
-            errorSound.play();
-
-            game.scene.restart();
-        }
-    }
+function nextLevel() {
+    this.scene.stop('storyLevel1');
+    this.scene.start('storyLevel2');
+    console.log("next Level");
+    leben = 3;
 }

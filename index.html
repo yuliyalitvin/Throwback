@@ -21,78 +21,51 @@
     <script src="Level2.js" type="text/javascript"></script>
     <script src="Level3.js" type="text/javascript"></script>
     <script src="Level4.js" type="text/javascript"></script>
-    <!--    <script src="scriptLvl3.js"></script>-->
+    <script src="storyLevel1.js" type="text/javascript"></script>
+    <script src="storyLevel2.js" type="text/javascript"></script>
+    <script src="storyLevel3.js" type="text/javascript"></script>
+    <script src="storyLevel4.js" type="text/javascript"></script>
 
-    <!--    <script src="start.js"></script>-->
-    <script src="http://code.jquery.com/jquery-3.3.1.js"></script>
+    <script src="story.js" type="text/javascript"></script>
+
     <script type="text/javascript">
         function startGame(x) {
             document.getElementById("menu").style.display = "none";
-            //        hidden();
             switch (x) {
                 case 1:
                     Level1();
                     console.log("Level 1");
-                    //                    document.getElementById("pauseButton").style.display = "block";
                     break;
                 case 2:
                     Level2();
                     console.log("Level 2");
-                    //                    document.getElementById("pauseButton").style.display = "block";
                     break;
                 case 3:
                     Level3();
                     console.log("Level 3");
-                    //                    document.getElementById("pauseButton").style.display = "block";
                     break;
                 case 4:
                     Level4();
                     console.log("Level 4");
-                    //                    document.getElementById("pauseButton").style.display = "block";
                     break;
                 case 5:
-                    story();
+                    document.getElementById("storyEinleitung").style.display = "block";
                     console.log("Storymode");
-                    //                    document.getElementById("pauseButton").style.display = "block";
                     break;
             }
-        }
-        //  function hidden(){
-        //    document.getElementById("menu").style.display="none";
-        //}
-        function pauseMenu() {
-
-            //        let canvas = document.querySelector("canvas");
-            //        canvas.scene.pause("default");
-            var pause = document.getElementById("pause");
-            //                 pauseGame();
-            if (pause.style.display === "none") {
-                pause.style.display = "block";
-                //                document.getElementById("menu").style.display="none";
-
-            } else {
-                pause.style.display = "none";
-            }
-
-            //Spiel muss pausieren
         }
 
         function showMenu() {
             document.getElementById("menu").style.display = "block";
-            document.getElementById("pause").style.display = "none";
             document.getElementById("gameOver").style.display = "none";
             document.getElementById("anleitung").style.display = "none";
             document.getElementById("levelGeschafft").style.display = "none";
             document.getElementById("storyGeschafft").style.display = "none";
-
-            let canvas = document.querySelector("canvas");
-            canvas.parentNode.removeChild(canvas);
         }
 
         function showAnleitung() {
             document.getElementById("anleitung").style.display = "block";
             document.getElementById("menu").style.display = "none";
-
         }
 
         function audio() {
@@ -108,8 +81,6 @@
 </head>
 
 <body onload="audio">
-    <!--        <audio autoplay="autoplay">-->
-
     <audio id="musik" controls autoplay loop>
         <source src="assets/sound/hintergrundMusik.mp3" type="audio/mpeg">
         <script>
@@ -127,9 +98,7 @@
 
                 <center>
                     <div id="levelMode">
-                        <!--                        <div id="storyMode" onclick="startGame(5)">Story Mode</div>-->
-                        <div id="storyMode" onclick="startGame(1)">Story Mode</div>
-                        <!--                        DIESE IST NUR FÜR DEMO-->
+                        <div id="storyMode" onclick="startGame(5)">Story Mode</div>
                         <ul>
                             <li id="Lvl4" onclick="startGame(4)">1920er</li>
                             <li id="Lvl3" onclick="startGame(3)">1940er</li>
@@ -152,49 +121,48 @@
                     </li>
                 </ul>
             </div>
-            <div id="pause">
-                pause
-                <ul>
-                    <li>
-                        <a href="index.html"> Zurück zum Menü</a>
-                    </li>
-                </ul>
-            </div>
             <div id="gameOver">
-                 <h1>Game Over!</h1>
+                <h1>Game Over!</h1>
                 Du hast es
-<!--                trotz der drei Leben, die dir zur Verfügung standen, -->
                 nicht geschafft dieses Jahrzehnt zu überleben. Möglicherweise war in der Vergangenheit tatsächlich nicht alles einfacher und besser wie immer alle sagen!
-                <br><br>
-<!--
-                Vielleicht musst du dich aber auch nur versuchen mehr in das Jahrzehnt hineinzuversetzen, um dessen "Tick" besser zu verstehen. Möglicherweise hilft dir das, um zu überleben und dir selbst zu beweisen, dass es früher wohlmöglich doch besser war...
-                Ach die alten guten Zeiten...!
--->
                 <ul>
                     <li>
                         <a href="index.html"> Zurück zum Menü</a>
                     </li>
-                    <!--                    <li onclick="showMenu()">Zurück zum Menü</li>-->
                 </ul>
             </div>
 
             <div id="levelGeschafft">
-               <h1>Level geschafft!</h1>
+                <h1>Level geschafft!</h1>
                 <p>
                     Glückwunsch! Du hast es geschafft! Mach dich bereit, auf alles was noch kommt... Man weiß ja nie, was die Vergangenheit so mit sich bringt...!
                 </p>
                 <ul>
                     <li>
-                        <a href="index.html"> Zurück zum Menü</a>
+                        <a href="index.html">Zurück zum Menü</a>
+                    </li>
+                </ul>
+            </div>
+            <div id="storyEinleitung">
+                <h1>Oh man!</h1>
+                <p>
+                    Meine Oma sagt immer "Früher war alles besser!". <br>
+                    Meine Eltern sagen jedoch immer wieder dass die Gegenwart besser ist.
+                    <br><br>
+                    Spiele und finde heraus!
+                </p>
+                <ul>
+                    <li onclick="story()">
+                        Zum Spiel!
                     </li>
                 </ul>
             </div>
 
             <div id="storyGeschafft">
-                <h1>Story geschafft!</h1>
+                <h1>Endlich geschafft!</h1>
                 <p>
                     Wow! Du hast es drauf, selbst die Vergangenheit kann dich nicht einholen!
-                    Na? Waren die alten guten Zeiten wirklich gut?
+                    Na? Waren die alten Zeiten wirklich gut?
                 </p>
                 <ul>
                     <li>
@@ -202,8 +170,6 @@
                     </li>
                 </ul>
             </div>
-            <!--            <i id="pauseButton" onclick="pauseMenu()" class="fas fa-pause"></i>-->
-            <!--            <i id="pauseButton" onclick="pauseMenu()"></i>-->
         </div>
     </div>
 </body>

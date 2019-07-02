@@ -102,6 +102,7 @@ function Level2() {
         deko.x = -500 * 31;
         dekoKollision.x = -500 * 31;
 
+        //PORTAL
         portalAusgang = this.physics.add.sprite(300, 465, 'portalAusgang'); //POSTITION VON DER ER RUNTER FÄLLT
         this.anims.create({
             key: 'startAusgang',
@@ -125,7 +126,6 @@ function Level2() {
             repeat: -1 // SAGT DASS ES EIN LOOP SEIN SOLL
         });
         portalEingang.body.allowGravity = false;
-
 
         //PLAYER
         player = this.physics.add.sprite(300, 465, 'dude'); //POSTITION VON DER ER RUNTER FÄLLT
@@ -151,16 +151,13 @@ function Level2() {
             repeat: -1
         });
 
-
         //Collision
         this.physics.add.collider(player, hindernisse, death, null, this);
         this.physics.add.collider(player, dekoKollision);
         this.physics.add.collider(player, portalEingang, levelGeschafft, null, this);
 
-
         hindernisse.setCollisionByExclusion([-1]);
         dekoKollision.setCollisionByExclusion([-1]);
-
 
         this.physics.add.collider(player, boden);
         map.setCollisionByProperty({
@@ -170,7 +167,7 @@ function Level2() {
         boden.setCollisionByExclusion([-1]);
         this.physics.add.collider(player, boden);
 
-        //             set bounds so the camera won't go outside the game world
+        //KAMERA
         this.cameras.main.setBounds(-15500, 0, map.widthInPixels, map.heightInPixels);
         this.cameras.main.startFollow(player);
 
@@ -183,14 +180,6 @@ function Level2() {
         herz3 = this.add.image(100, 25, 'herz');
         herz3.setScrollFactor(0);
 
-        //Pause
-        //        pause = this.add.text(778, 30, 'pause', {
-        //            fontSize: '32px',
-        //            fill: '#ffffff'
-        //        })
-        //        pause.setScrollFactor(0);
-
-
         //TASTATUR
         cursors = this.input.keyboard.createCursorKeys();
     }
@@ -200,10 +189,23 @@ function Level2() {
         portalAusgang.anims.play('startAusgang', true);
         portalEingang.anims.play('startEingang', true);
 
-        player.setVelocityX(-120);
-        player.anims.play('left', true);
 
-        if ( cameraX == this.cameras.main.scrollX && player.x > -18100 && player.x < -100) {
+        if (cursors.space.isDown || cursors.up.isDown) {
+            this.gameStarts = true;
+            let jumpSound = new Audio();
+            jumpSound.src = 'assets/sound/jump.mp3';
+            jumpSound.volume = 0.5;
+            jumpSound.play();
+        }
+
+        if (this.gameStarts == true) {
+            player.setVelocityX(-120);
+            player.anims.play('left', true);
+        } else {
+            player.anims.play('stands', true);
+        }
+
+        if (cameraX == this.cameras.main.scrollX && player.x > -18100 && player.x < -100) {
             player.anims.play('stands', true);
         }
 
@@ -255,7 +257,6 @@ function Level2() {
             errorSound.play();
 
             this.scene.restart();
-            //            sounds von https://www.zapsplat.com/?s=error&post_type=music&sound-effect-category-id=
         }
     }
 
@@ -278,22 +279,14 @@ function Level2() {
 
     function openGameOverScreen() {
         document.getElementById("gameOver").style.display = "block";
-//        document.getElementById("pauseButton").style.display = "none";
         let canvas = document.querySelector("canvas");
         canvas.parentNode.removeChild(canvas);
     }
 
     function levelGeschafft() {
         document.getElementById("levelGeschafft").style.display = "block";
-//        document.getElementById("pauseButton").style.display = "none";
         let canvas = document.querySelector("canvas");
-        canvas.parentNode.removeChild(canvas);
-    }
-
-    function storyGeschafft() {
-        document.getElementById("storyGeschafft").style.display = "block";
-//        document.getElementById("pauseButton").style.display = "none";
-        let canvas = document.querySelector("canvas");
+        console.log("Level complete");
         canvas.parentNode.removeChild(canvas);
     }
 }
