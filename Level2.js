@@ -189,15 +189,6 @@ function Level2() {
         portalAusgang.anims.play('startAusgang', true);
         portalEingang.anims.play('startEingang', true);
 
-
-        if (cursors.space.isDown || cursors.up.isDown) {
-            this.gameStarts = true;
-            let jumpSound = new Audio();
-            jumpSound.src = 'assets/sound/jump.mp3';
-            jumpSound.volume = 0.5;
-            jumpSound.play();
-        }
-
         if (this.gameStarts == true) {
             player.setVelocityX(-120);
             player.anims.play('left', true);
@@ -213,7 +204,7 @@ function Level2() {
         cameraX = this.cameras.main.scrollX;
 
         if ((cursors.space.isDown || cursors.up.isDown) && player.body.onFloor() && player.y > 300) {
-
+            this.gameStarts = true;
             player.setVelocityY(-420);
             let jumpSound = new Audio();
             jumpSound.src = 'assets/sound/jump.mp3';

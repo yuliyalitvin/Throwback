@@ -143,21 +143,13 @@ function Level1() {
 
         portalAusgang.anims.play('startAusgang', true);
 
-        if (cursors.space.isDown || cursors.up.isDown) {
-            this.gameStarts = true;
-            let jumpSound = new Audio();
-            jumpSound.src = 'assets/sound/jump.mp3';
-            jumpSound.volume = 0.5;
-            jumpSound.play();
-
-        }
-
         if (this.gameStarts == true) {
             player.setVelocityX(-150);
             player.anims.play('left', true);
         }
 
         if ((cursors.space.isDown || cursors.up.isDown) && player.body.onFloor()) {
+            this.gameStarts = true;
             player.setVelocityY(-250);
             let jumpSound = new Audio();
             jumpSound.src = 'assets/sound/jump.mp3';

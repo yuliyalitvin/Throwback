@@ -111,16 +111,13 @@ class storyLevel1 extends Phaser.Scene {
 
         portalAusgang.anims.play('startAusgang', true);
 
-        if (cursors.space.isDown || cursors.up.isDown) {
-            this.gameStarts = true;
-        }
-
         if (this.gameStarts == true) {
             player.setVelocityX(-150);
             player.anims.play('left', true);
         }
         if ((cursors.space.isDown || cursors.up.isDown) && player.body.onFloor()) {
             player.setVelocityY(-250);
+            this.gameStarts = true;
             let jumpSound = new Audio();
             jumpSound.src = 'assets/sound/jump.mp3';
             jumpSound.volume = 0.5;
