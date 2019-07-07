@@ -161,6 +161,7 @@ li {
 }
 
 #storyEinleitung {
+/*    background-image: url(assets/oma+bubble.gif);*/
     text-align: center;
     position: absolute;
     top: 0;
@@ -176,12 +177,51 @@ li {
 
 #storyEinleitung li {
     text-align: center;
-    float: none;
-    margin-left: 40%;
+    float: left;
+    margin-left: 10%;
     margin-top: 40px;
     height: 80px;
     width: 300px;
 }
+
+#einleitungsText {
+    float: left;
+    margin-top: 10%;
+    width: 48%;
+    display: none;
+    opacity: 1;
+/*    position: absolute;*/
+}
+
+#sprechblase {
+    margin-top: 10%;
+    position: relativ;
+    display: block;
+    float: left; 
+    width: 48%;
+    object-fit: contain;
+    -webkit-animation: cssAnimation 5s forwards; 
+    animation: cssAnimation 5s forwards;
+}
+
+#omaPic {
+    width: 50%;
+    float: right;
+/*    position: absolute;*/
+}
+
+@keyframes cssAnimation {
+    0%   {opacity: 1;}
+    90%  {opacity: 1;}
+    100% {opacity: 0;}
+}
+
+@-webkit-keyframes cssAnimation {
+    0%   {opacity: 1;}
+    90%  {opacity: 1;}
+    100% {opacity: 0;}
+}
+
 
 #storyGeschafft {
     text-align: center;

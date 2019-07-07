@@ -51,6 +51,7 @@
                 case 5:
                     document.getElementById("storyEinleitung").style.display = "block";
                     console.log("Storymode");
+                    switchEinleitungsText();
                     break;
             }
         }
@@ -75,6 +76,13 @@
             var music = document.getElementById('musik');
             music.volume = 0.5;
 
+        }
+
+        function switchEinleitungsText() {
+            setTimeout(function() {
+                document.getElementById("sprechblase").style.display = 'none';
+                document.getElementById("einleitungsText").style.display = 'block';
+            }, 5000)
         }
 
     </script>
@@ -144,18 +152,30 @@
                 </ul>
             </div>
             <div id="storyEinleitung">
-                <h1>Oh man!</h1>
-                <p>
-                    Meine Oma sagt immer "Früher war alles besser!". <br>
-                    Meine Eltern sagen jedoch immer wieder dass die Gegenwart besser ist.
-                    <br><br>
-                    Spiele und finde es für dich selber heraus!
-                </p>
-                <ul>
-                    <li onclick="story()">
-                        Zum Spiel!
-                    </li>
-                </ul>
+
+                <div id="sprechblase">
+                    <img width="100%" ; height="auto" src="assets/speechbubble.gif">
+                </div>
+
+
+                <div id="omaPic">
+                    <img src="assets/oma.png">
+                </div>
+                <div id="einleitungsText">
+                    <h1>Oh man!</h1>
+                    <p>
+                        Das hab ich echt oft gehört. <br>
+                        Doch stimmt das wirklich?
+                        <br>
+                        Ich will es jetzt selber heraus finden!
+                    </p>
+                    <ul>
+                        <li onclick="story()">
+                            Zum Spiel!
+                        </li>
+
+                    </ul>
+                </div>
             </div>
 
             <div id="storyGeschafft">
