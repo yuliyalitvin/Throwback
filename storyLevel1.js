@@ -9,7 +9,7 @@ class storyLevel1 extends Phaser.Scene {
     preload() {
         this.load.image('Level1Ground', 'assets/tiled/lvl1Ground.png');
         this.load.image('Level1Extras', 'assets/tiled/lvl1Background.png');
-        this.load.tilemapTiledJSON('map', 'assets/tiled/lvl1.json');
+        this.load.tilemapTiledJSON('map', 'assets/tiled/lvl1story.json');
         this.load.image('herz', 'assets/herz.png');
 
         this.load.spritesheet('dude', 'assets/dude.png', {
