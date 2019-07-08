@@ -1,0 +1,10 @@
+Zum starten oeffnen Sie bitte die index.html.
+Achten sie darauf das ihr Browser nicht die Audio unterdrückt.
+
+Viel Spaß beim spielen!
+
+Ihr Entwicklerteam
+LARS OBIST	5043024 
+THAO NGUYEN	5034297 
+YULIYA LITVIN	5034284 
+MOUMITA AHMAD	5027729
